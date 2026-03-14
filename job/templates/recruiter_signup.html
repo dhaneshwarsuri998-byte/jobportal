@@ -1,0 +1,130 @@
+{% load static %}
+
+{% block body %}
+
+    {% include 'navigation.html' %}
+    <script>
+    function checkpass()
+    {
+        if (document.signup.pwd.value!==document.signup.cpwd.value)
+        {
+           alert('Password and Repeat passwords do not match');
+           document.signup.cpwd.focus();
+           return false;
+        }
+        return true;
+    }
+    </script>
+
+    <marquee style="font-family: 'Monotype Corsiva',serif ; font-size: 25px ; color: darkcyan ; background-color: black ; font-weight: bold ; margin-top: 1% ">
+    Recruiter Signup
+    </marquee>
+<hr>
+
+
+    <form class="container mt-5" onsubmit="return checkpass()" name="signup" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>First Name</label>
+            <label>
+                <input type="text" class="form-control" name="fname" placeholder="Enter First Name" required>
+            </label>
+
+        </div>
+        <div class="form-group col-md-6">
+            <label>Last Name</label>
+            <label>
+                <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" required>
+            </label>
+        </div>
+    </div>
+     <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Contact</label>
+            <label>
+                <input type="tel" class="form-control" name="contact" placeholder="Enter Contact Name">
+            </label>
+        </div>
+
+          <div class="form-group col-md-6">
+            <label>Company</label>
+            <label>
+                <input type="text" class="form-control" name="company" placeholder="Enter Your CompanyName" required>
+            </label>
+        </div>
+
+         <div class="form-group col-md-12">
+            <label>Email ID</label>
+            <label>
+                <input type="email" class="form-control" name="email" placeholder="Enter Email Address" required>
+            </label>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Password</label>
+            <label>
+                <input type="password" class="form-control" name="pwd" placeholder="Enter Password" required>
+            </label>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Confirm Password</label>
+            <label>
+                <input type="password" class="form-control" name="cpwd" placeholder="Enter Password Again" required>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Gender</label>
+            <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline1" name="gender" class="custom-control-input" value="Male">
+            <label class="custom-control-label" for="customRadioInline1">Male</label>
+</div>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="customRadioInline2" name="gender" class="custom-control-input" value="Female">
+            <label class="custom-control-label" for="customRadioInline2">Female</label>
+    </div>
+            <div class="form-group col-md-6">
+            <label>Image</label>
+            <label>
+                <input type="file" class="form-control" name="image" required >
+            </label>
+        </div>
+
+        </div>
+    <input type="submit" value="submit" class="btn btn-primary" style="width: 200px">
+
+
+    </form>
+    <br>
+    <br>
+    <br>
+
+
+{% include 'footer.html' %}
+
+{% if error == "no" %}
+    <script>
+    alert("Signup successful");
+    window.location.href = ('{% url 'recruiter_login' %}')
+    </script>
+    {% endif %}
+
+    {% if error == "yes" %}
+    <script>
+    alert("Something went wrong, please try again");
+    </script>
+    {% endif %}
+
+
+{% endblock %}
